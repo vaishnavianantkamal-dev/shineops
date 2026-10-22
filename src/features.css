@@ -1,0 +1,112 @@
+/* ============================================================
+   Features: vertical card marquee (left) + desktop photo (right)
+   ============================================================ */
+.features-x { max-width: 1480px; box-sizing: border-box; margin: 0 auto; padding: 64px 24px; }
+.fx-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+
+/* ---------- Marquee ---------- */
+.fx-marquee {
+  height: 600px; display: flex; gap: 18px; overflow: hidden;
+}
+.fx-col { flex: 1 1 0; min-width: 0; }
+.fx-track {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 18px;
+  animation: fx-up 18s linear infinite;
+}
+.fx-col.reverse .fx-track { animation-name: fx-down; }
+.fx-marquee:hover .fx-track { animation-play-state: paused; }
+/* -50% minus half a gap so the duplicate lines up exactly */
+@keyframes fx-up { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 9px)); } }
+@keyframes fx-down { from { transform: translateY(calc(-50% - 9px)); } to { transform: translateY(0); } }
+
+/* ---------- Card ---------- */
+.fx-card {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 14px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px;
+  box-shadow: 0 12px 28px -20px rgba(8, 60, 66, 0.35);
+}
+.fx-spark { position: absolute; top: 8px; right: 8px; }
+.fx-text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fx-icon {
+  width: 40px; height: 40px; border-radius: 10px; margin-bottom: 4px;
+  background: var(--accent-soft); color: var(--accent);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.fx-text h3 { font-size: 17px; font-weight: 700; line-height: 1.25; }
+.fx-text p { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.fx-visual { min-width: 0; }
+
+/* ---------- Mini visuals (always light, like a screenshot) ---------- */
+.fv-panel, .fv-stack { color: #0D1C20; font-size: 11px; }
+.fv-panel {
+  background: #fff; border: 1px solid #E3EBEC; border-radius: 12px; padding: 10px 12px;
+  box-shadow: 0 10px 22px -16px rgba(8, 60, 66, 0.4); display: flex; flex-direction: column; gap: 7px;
+}
+.fv-title { font-family: var(--display); font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+.fv-title-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.fv-chip { white-space: nowrap; font-family: var(--body); font-weight: 500; font-size: 9.5px; color: #5B7076; border: 1px solid #E3EBEC; border-radius: 6px; padding: 1px 6px; }
+.fv-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.fv-avatar { width: 14px; height: 14px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+.fv-avatar.person { width: 18px; height: 18px; }
+.fv-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
+.fv-badge { font-size: 9.5px; font-weight: 600; padding: 1px 7px; border-radius: 999px; }
+.fv-badge.good { color: #1C7A3A; background: #E3F4E8; }
+.fv-name.fixed { flex: none; }
+.fv-bar { flex: 1; min-width: 24px; height: 6px; border-radius: 999px; background: #EDF2F3; overflow: hidden; }
+.fv-fill { display: block; height: 100%; border-radius: inherit; }
+.fv-fill.good { background: #22B26A; }
+.fv-fill.warn { background: #F2A93B; }
+.fv-fill.crit { background: #E5484D; }
+.fv-pct { width: 28px; text-align: right; font-family: var(--mono); font-size: 10px; color: #3E5257; }
+.fv-legend { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 9.5px; color: #3E5257; }
+.fv-legend i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: 1px; }
+.fv-toggle { width: 22px; height: 12px; border-radius: 999px; background: #CBD5D7; position: relative; flex: none; }
+.fv-toggle span { position: absolute; top: 2px; left: 2px; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.fv-toggle.on { background: #1FAE5B; }
+.fv-toggle.on span { left: 12px; }
+.fv-line { flex: 1; height: 6px; border-radius: 999px; background: #EDF2F3; }
+.fv-stack { display: flex; flex-direction: column; gap: 7px; }
+.fv-alert {
+  display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 10px;
+  background: #fff; border: 1px solid #E3EBEC; box-shadow: 0 8px 18px -14px rgba(8, 60, 66, 0.4);
+}
+.fv-alert b { display: block; font-size: 11px; }
+.fv-alert small { display: block; font-size: 9.5px; color: #5B7076; }
+.fv-alert-mark { width: 18px; height: 18px; flex: none; border-radius: 50%; color: #fff; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+.fv-alert.crit { background: #FFF3F2; }
+.fv-alert.crit .fv-alert-mark { background: #E5484D; }
+.fv-alert.warn { background: #FFF8EC; }
+.fv-alert.warn .fv-alert-mark { background: #F2A93B; }
+.fv-alert.good .fv-alert-mark { background: #1FAE5B; }
+.fv-check { width: 14px; height: 14px; border-radius: 4px; background: #2A78D6; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- Photo (single clean frame, full image, no fade) ---------- */
+.fx-photo {
+  margin: 0; border-radius: 22px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface);
+  box-shadow: 0 30px 60px -30px rgba(8, 60, 66, 0.4);
+}
+.fx-photo img { display: block; width: 100%; height: auto; }
+@media (max-width: 640px) { .fx-photo { border-radius: 16px; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .fx-layout { grid-template-columns: minmax(0, 1fr); }
+  .fx-marquee { height: 560px; }
+}
+@media (max-width: 760px) {
+  .fx-card { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .features-x { padding: 48px 16px; }
+  .fx-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 16px; }
+}
+@media (max-width: 420px) {
+  .fx-card { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-marquee { height: auto; }
+  .fx-track { animation: none; }
+  .fx-card[aria-hidden] { display: none; }
+}
